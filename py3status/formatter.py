@@ -193,7 +193,14 @@ class Block:
                 text += item
             else:
                 if text:
+<<<<<<< HEAD
                     data.append(process_text_chunk(text, Options))
+=======
+                    if is_composite and self.parent is None:
+                        data.append({'full_text': text})
+                    else:
+                        data.append(text)
+>>>>>>> master
                 text = ''
                 if self.parent is None:
                     # This is the main block so we get the actual composites
@@ -205,7 +212,14 @@ class Block:
                     process_composite_chunk_item(item.content, Options)
                     data.append(item)
         if text:
+<<<<<<< HEAD
             data.append(process_text_chunk(text, Options))
+=======
+            if is_composite and self.parent is None:
+                data.append({'full_text': text})
+            else:
+                data.append(text)
+>>>>>>> master
 
         return data
 
@@ -755,6 +769,11 @@ if __name__ == '__main__':
             ],
             'composite': True,
         },
+        {
+            'format': '{simple} TEST [{name}[ {number}]]',
+            'expected':  [{'full_text': 'NY 12:34'}, {'full_text': u' TEST Björk 42'}],
+            'composite': True,
+        },
         # block colors
         {
             'format': '[\?color=bad {name}]',
@@ -798,7 +817,6 @@ if __name__ == '__main__':
                 {'full_text': ' '},
                 {'full_text': 'Björk', 'color': '#00FF00'}
             ],
-        },
     ]
 
     passed = 0
